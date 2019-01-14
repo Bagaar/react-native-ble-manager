@@ -291,14 +291,8 @@ RCT_EXPORT_METHOD(start:(NSDictionary *)options callback:(nonnull RCTResponseSen
         
         [initOptions setObject:[options valueForKey:@"restoreIdentifierKey"]
                         forKey:CBCentralManagerOptionRestoreIdentifierKey];
-        
-        if (_sharedManager) {
-            manager = _sharedManager;
-            manager.delegate = self;
-        } else {
-            manager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue() options:initOptions];
-            _sharedManager = manager;
-        }
+        manager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue() options:initOptions];
+        _sharedManager = manager;
     } else {
         manager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue() options:initOptions];
         _sharedManager = manager;
