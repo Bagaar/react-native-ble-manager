@@ -282,6 +282,11 @@ RCT_EXPORT_METHOD(start:(NSDictionary *)options callback:(nonnull RCTResponseSen
     NSLog(@"BleManager initialized");
     NSMutableDictionary *initOptions = [[NSMutableDictionary alloc] init];
     
+    if (_sharedManager){
+        [self bridgeReloading];
+        self.manager = nil;
+    }
+    
     if ([[options allKeys] containsObject:@"showAlert"]){
         [initOptions setObject:[NSNumber numberWithBool:[[options valueForKey:@"showAlert"] boolValue]]
                         forKey:CBCentralManagerOptionShowPowerAlertKey];
@@ -291,8 +296,14 @@ RCT_EXPORT_METHOD(start:(NSDictionary *)options callback:(nonnull RCTResponseSen
         
         [initOptions setObject:[options valueForKey:@"restoreIdentifierKey"]
                         forKey:CBCentralManagerOptionRestoreIdentifierKey];
-        manager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue() options:initOptions];
-        _sharedManager = manager;
+
+        if (_sharedManager) {
+            manager = _sharedManager;
+            manager.delegate = self;
+        } else {
+            manager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue() options:initOptions];
+            _sharedManager = manager;
+        }
     } else {
         manager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue() options:initOptions];
         _sharedManager = manager;
