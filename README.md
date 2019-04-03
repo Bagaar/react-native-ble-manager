@@ -1,3 +1,11 @@
+# Bagaar Fork
+- This is a forked version of https://github.com/VitamineC/react-native-ble-manager, just to keep it save and sound for us.
+- This is needed for the Ressence Ecrown app.
+- These are the issues that are fixed with this fork: 
+  - https://github.com/Pilloxa/react-native-nordic-dfu/issues/48
+  - https://github.com/innoveit/react-native-ble-manager/issues/439
+
+
 # react-native-ble-manager
 [![npm version](https://img.shields.io/npm/v/react-native-ble-manager.svg?style=flat)](https://www.npmjs.com/package/react-native-ble-manager)
 [![npm downloads](https://img.shields.io/npm/dm/react-native-ble-manager.svg?style=flat)](https://www.npmjs.com/package/react-native-ble-manager)
